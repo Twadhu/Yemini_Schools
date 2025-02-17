@@ -19,6 +19,20 @@
             color: white;
             padding: 20px;
             text-align: center;
+            position: relative;
+        }
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .language-switcher button {
+            background-color: #003366;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
         }
         nav {
             background-color: #003366;
@@ -93,20 +107,20 @@
 
     <!-- Header -->
     <header>
+        <div class="language-switcher">
+            <button onclick="changeLanguage('ar')">العربية</button>
+            <button onclick="changeLanguage('en')">English</button>
+        </div>
         <h1>منصة مدارس الجمهورية</h1>
         <p>إدارة المدارس والمناهج والمنح الدراسية</p>
     </header>
 
     <!-- Navbar -->
     <nav>
-        <a href="#">الرئيسية</a>
-        <a href="#">حول المنصة</a>
-        <a href="#">المدارس</a>
-        <a href="#">الطلاب</a>
-        <a href="#curriculum">المناهج</a>
-        <a href="#scholarships">المنح الدراسية</a>
+        <a href="#" onclick="showMainMenu()">الرئيسية</a>
+        <a href="#" onclick="showScholarshipsMenu()">المنح الدراسية</a>
         <a href="#login">تسجيل الدخول</a>
-        <a href="#register">التسجيل</a>
+        <a href="#register">إنشاء حساب</a>
     </nav>
 
     <!-- Main Content -->
@@ -166,6 +180,44 @@
 
     <!-- Scripts -->
     <script>
+        function changeLanguage(lang) {
+            if (lang === 'ar') {
+                document.documentElement.lang = 'ar';
+                document.documentElement.dir = 'rtl';
+                document.querySelector('h1').innerText = 'منصة مدارس الجمهورية';
+                document.querySelector('p').innerText = 'إدارة المدارس والمناهج والمنح الدراسية';
+            } else if (lang === 'en') {
+                document.documentElement.lang = 'en';
+                document.documentElement.dir = 'ltr';
+                document.querySelector('h1').innerText = 'Republic Schools Platform';
+                document.querySelector('p').innerText = 'Managing Schools, Curricula, and Scholarships';
+            }
+        }
+
+        function showMainMenu() {
+            document.querySelector('.container').innerHTML = `
+                <h2>مرحبًا بكم في منصة مدارس الجمهورية</h2>
+                <p>هذه المنصة تهدف إلى تنظيم العملية التعليمية، وإدارة المدارس، وتوفير المناهج الدراسية والمنح الدراسية للطلاب.</p>
+                <ul>
+                    <li><a href="#">حول المنصة</a></li>
+                    <li><a href="#">المدارس</a></li>
+                </ul>
+            `;
+        }
+
+        function showScholarshipsMenu() {
+            document.querySelector('.container').innerHTML = `
+                <h2>المنح الدراسية</h2>
+                <ul>
+                    <li><a href="#" onclick="showScholarshipDetail('chinaGov')">منح الحكومات الصينية</a></li>
+                    <li><a href="#" onclick="showScholarshipDetail('chinaProvinces')">منح المقاطعات الصينية</a></li>
+                    <li><a href="#" onclick="showScholarshipDetail('malaysiaBukhari')">منحة جامعة البخاري (ماليزيا)</a></li>
+                    <li><a href="#" onclick="showScholarshipDetail('malaysiaPerlis')">منحة جامعة برليس (ماليزيا)</a></li>
+                    <li><a href="#" onclick="showScholarshipDetail('exchangeProgram')">منح التبادل الثقافي</a></li>
+                </ul>
+            `;
+        }
+
         function showScholarshipDetail(scholarshipType) {
             var scholarshipTitle = '';
             var scholarshipDetails = '';
